@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>Login and Register</title>
+		<link rel="stylesheet" href="css/style.css"></link>
+		<script src="js/jquery-2.2.4.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#register").click(function(){
+					if(document.getElementById('pass').value==document.getElementById('vpass').value)
+					{
+						var url='http://sanseeta.esy.es/server/index.php?user='+document.getElementById('user').value+'&pass='+document.getElementById('pass').value+'&email='+document.getElementById('email').value+'&phone='+document.getElementById('phone').value+'&roll='+document.getElementById('roll').value;
+						$.getJSON(url,function(result){
+							if(result.check=="True")
+							{
+								localStorage.setItem('user',document.getElementById('user').value);
+								window.open('main.html','_parent');
+							}
+							else
+								alert("Failed");
+						});
+					}
+					else
+						alert('Passwords Missmatch !');
+				});
+				$('#register').click(function(){
+					window.open('register.html','_parent');
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="myForm">
+			<h1>My Login App</h1>
+			<input type="text" id="user" required placeholder="Username"><br/>
+			<input type="password" id="pass" required placeholder="Password"><br/>
+			<input type="password" id="vpass" required placeholder="Retype Password"><br/>
+			<input type="email" id="email" required placeholder="Email"><br/>
+			<input type="number" id="phone" required placeholder="Number"><br/>
+			<input type="number" id="roll" required placeholder="Roll Number"><br/>
+			<select id="role">
+				<option value="st">Student !</option>
+				<option value="em">Employee !</option>
+			</select>
+			<button id="register">Register</button>
+		</div>
+	</body>
+</html>
